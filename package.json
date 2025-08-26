@@ -1,0 +1,29 @@
+{
+  "private": true,
+  "scripts": {
+    "prebuild": "pnpm run clean",
+    "build:it": "latexmk -interaction=nonstopmode -file-line-error -xelatex -halt-on-error -outdir=build resume-it && pnpm exec shx cp ./build/resume-it.pdf ./Tonini_Isaia_CV_it.pdf",
+    "build:en": "latexmk -interaction=nonstopmode -file-line-error -xelatex -halt-on-error -outdir=build resume-en && pnpm exec shx cp ./build/resume-en.pdf ./Tonini_Isaia_CV_en.pdf",
+    "build:all": "pnpm run build:it && pnpm run build:en",
+    "build": "pnpm run build:all",
+    "postbuild": "echo 'postbuild noop'",
+    "check": "pnpm run-all check:*",
+    "check:format": "pnpm exec prettier --check .",
+    "check:spell": "pnpm exec cspell lint --config cspell.json --no-progress --show-context \"**\"",
+    "clean": "pnpm exec shx rm -rf ./build ./Tonini_Isaia_CV*.pdf",
+    "fix": "pnpm run-all fix:*",
+    "fix:format": "pnpm exec prettier --write ."
+  },
+  "devDependencies": {
+    "@cspell/dict-en_us": "^4.4.17",
+    "@cspell/dict-it-it": "^3.1.6",
+    "@cspell/dict-latex": "^4.0.4",
+    "@cspell/dict-markdown": "^2.0.12",
+    "@cspell/dict-npm": "^5.2.14",
+    "cspell": "^9.2.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.6.2",
+    "prettier-plugin-latex": "^2.0.1",
+    "shx": "^0.4.0"
+  }
+}
