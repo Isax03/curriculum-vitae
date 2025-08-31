@@ -20,14 +20,14 @@
 % If you would like to change the social information separator from a pipe (|) to something else
 \renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
 
-
 %-------------------------------------------------------------------------------
 %	PERSONAL INFORMATION
 %	Comment any of the lines below if they are not required
 %-------------------------------------------------------------------------------
 % Available options: circle|rectangle,edge/noedge,left/right
 %\photo[rectangle,edge,left]{./prof.jpeg}
-\name{Isaia} {Tonini}
+\name{Isaia}
+{Tonini}
 \position{Sviluppatore Full-Stack {\enskip\cdotp\enskip} Ingegnere del Software} %Studente Informatica{\enskip\cdotp\enskip} Software Engineer
 % \address{Via Roma 2/g, Tesero (TN), Italia}
 
@@ -39,39 +39,39 @@
 
 %-------------------------------------------------------------------------------
 \begin{document}
+  % Print the header with above personal informations
+  % Give optional argument to change alignment(C: center, L: left, R: right)
+  \makecvheader[C]
 
-% Print the header with above personal informations
-% Give optional argument to change alignment(C: center, L: left, R: right)
-\makecvheader[C]
+  % Print the footer with 3 arguments(<left>, <center>, <right>)
+  % Leave any of these blank if they are not needed
+  \makecvfooter {\today} {{Isaia Tonini}~~~·~~~Curriculum Vitae} {\thepage}
 
-% Print the footer with 3 arguments(<left>, <center>, <right>)
-% Leave any of these blank if they are not needed
-\makecvfooter
-  {\today}
-  {{Isaia Tonini}~~~·~~~Curriculum Vitae}
-  {\thepage}
+  %-------------------------------------------------------------------------------
+  %	CV/RESUME CONTENT
+  %	Each section is imported separately, open each file in turn to modify content
+  %-------------------------------------------------------------------------------
+  \input{resume/it/instruction.tex}
+  \input{resume/it/experience.tex}
+  \input{resume/it/skills.tex}
+  \input{resume/it/projects}
+  \input{resume/it/publications.tex}
+  \input{resume/it/honors.tex}
+  \input{resume/it/langs.tex}
 
+  \newcommand{\datipersonali}{\footnotesize
+  \color{gray}
+  \itshape Autorizzo il trattamento dei miei dati personali presenti nel CV ai
+  sensi dell’art. 13 d. lgs. 30 giugno 2003 n. 196 - “Codice in materia di
+  protezione dei dati personali” e dell’art. 13 GDPR 679/16 - “Regolamento europeo
+  sulla protezione dei dati personali”.}
 
-%-------------------------------------------------------------------------------
-%	CV/RESUME CONTENT
-%	Each section is imported separately, open each file in turn to modify content
-%-------------------------------------------------------------------------------
-\input{resume/it/instruction.tex}
-\input{resume/it/experience.tex}
-\input{resume/it/skills.tex}
-\input{resume/it/projects}
-\input{resume/it/honors.tex}
-\input{resume/it/langs.tex}
+  \vfill % Posiziona il testo in basso
 
-\newcommand{\datipersonali}{\footnotesize\color{gray}\itshape Autorizzo il trattamento dei miei dati personali presenti nel CV ai sensi dell’art. 13 d. lgs. 30 giugno 2003 n. 196 - “Codice in materia di protezione dei dati personali” e dell’art. 13 GDPR 679/16 - “Regolamento europeo sulla protezione dei dati personali”.}
-
-\vfill % Posiziona il testo in basso
-
-\datipersonali\\[2ex]
-\hfill
-\begin{minipage}[b]{0.95\textwidth}
+  \datipersonali\\[2ex] \hfill
+  \begin{minipage}[b]{0.95\textwidth}
     \hspace*{\fill}
     \includegraphics[width=2.75cm]{firma-no-bg.png}
-\end{minipage}
-%-------------------------------------------------------------------------------
+  \end{minipage}
+  %-------------------------------------------------------------------------------
 \end{document}
