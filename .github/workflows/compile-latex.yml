@@ -13,16 +13,21 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     outputs:
+      date: ${{ steps.date.outputs.today }}
       release_name: ${{ steps.release_name.outputs.name }}
       tag_name: ${{ steps.tag_name.outputs.tag }}
     steps:
+      - name: Get current date
+        id: date
+        run: echo "today=$(date +'%y-%m-%d')" >> "$GITHUB_OUTPUT"
+      
       - name: Set release name
         id: release_name
-        run: echo "name=Curriculum Vitae ${{ github.event.inputs.version || 'Latest' }}" >> "$GITHUB_OUTPUT"
-
+        run: echo "name=Curriculum Vitae ${{ github.event.inputs.version || steps.date.outputs.today }}" >> "$GITHUB_OUTPUT"
+      
       - name: Set tag name
         id: tag_name
-        run: echo "tag=CV-${{ github.event.inputs.version || 'latest' }}" >> "$GITHUB_OUTPUT"
+        run: echo "tag=CV-${{ github.event.inputs.version || steps.date.outputs.today }}" >> "$GITHUB_OUTPUT"
 
   build-cv:
     runs-on: ubuntu-latest
@@ -74,10 +79,10 @@ jobs:
       - name: Compile English CV
         run: pnpm run build:en
 
-      - name: Rename PDFs
+      - name: Rename PDFs with date
         run: |
-          mv Tonini_Isaia_CV_it.pdf Isaia_Tonini_CV_IT.pdf
-          mv Tonini_Isaia_CV_en.pdf Isaia_Tonini_CV_EN.pdf
+          mv Tonini_Isaia_CV_it.pdf Isaia_Tonini_CV_IT-${{ needs.setup.outputs.date }}.pdf
+          mv Tonini_Isaia_CV_en.pdf Isaia_Tonini_CV_EN-${{ needs.setup.outputs.date }}.pdf
 
       - name: Create unified GitHub release
         uses: softprops/action-gh-release@v1
@@ -85,8 +90,8 @@ jobs:
           tag_name: ${{ needs.setup.outputs.tag_name }}
           name: ${{ needs.setup.outputs.release_name }}
           files: |
-            Isaia_Tonini_CV_IT.pdf
-            Isaia_Tonini_CV_EN.pdf
+            Isaia_Tonini_CV_IT-${{ needs.setup.outputs.date }}.pdf
+            Isaia_Tonini_CV_EN-${{ needs.setup.outputs.date }}.pdf
           generate_release_notes: true
           draft: false
           prerelease: false
